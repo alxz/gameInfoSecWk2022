@@ -184,6 +184,8 @@ App.prototype.start = function () {
         
         // SuperMan
         this.load.spritesheet('SuperHeroStanding', 'png/SuperMan_Frames_60x80x7.png', {frameWidth: 60, frameHeight: 80});
+        // Super Man Goes Right
+        this.load.spritesheet('SuperHeroWalking', 'png/SuperMan_Frames_60x80x16.png', {frameWidth: 60, frameHeight: 80});
 
     }
 
@@ -1157,19 +1159,33 @@ App.prototype.start = function () {
         superMan = scene.physics.add.sprite(x, y, 'SuperHeroStanding');
         console.log('SuperHeroStanding', superMan);
 
+        superManWalk = scene.physics.add.sprite(x+150, y, 'SuperHeroWalking');
+        console.log('SuperHeroWalking', superManWalk);
+
         //  Player physics properties. Give the little guy a slight bounce.
         superMan.setBounce(0.2);
         //player.setCollideWorldBounds(true);
         //  Our player animations, turning, walking left and walking right.
         scene.anims.create({
-            key: 'standFaceFwd',
-            frames: scene.anims.generateFrameNumbers('SuperHeroStanding', {start: 0, end: 6}),
+            key: 'superHerostandFaceFwd',
+            frames: scene.anims.generateFrameNumbers('SuperHeroStanding', {start: 0, end: 7}),
             frameRate: 10,
             repeat: -1
         });
         superMan.setDepth(12);
 
-        superMan.anims.play('standFaceFwd', true);
+        superMan.anims.play('superHerostandFaceFwd', true);
+
+        scene.anims.create({
+            key: 'superHeroWalkRight',
+            frames: scene.anims.generateFrameNumbers('SuperHeroWalking', {start: 8, end: 15}),
+            frameRate: 10,
+            repeat: -1
+        });
+        superManWalk.setDepth(12);
+
+        superManWalk.anims.play('superHeroWalkRight', true);
+
         // superMan.disableBody(false, true);
     }
 
