@@ -185,7 +185,7 @@ App.prototype.start = function () {
         // SuperMan
         this.load.spritesheet('SuperHeroStanding', 'png/SuperMan_Frames_60x80x7.png', {frameWidth: 60, frameHeight: 80});
         // Super Man Goes Right
-        this.load.spritesheet('SuperHeroWalking', 'png/SuperMan_Frames_60x80x16.png', {frameWidth: 60, frameHeight: 80});
+        this.load.spritesheet('SuperHeroWalking', 'png/SuperMan_FwRrFrames_60x80x14.png', {frameWidth: 60, frameHeight: 80});
 
     }
 
@@ -1178,7 +1178,7 @@ App.prototype.start = function () {
 
         scene.anims.create({
             key: 'superHeroWalkRight',
-            frames: scene.anims.generateFrameNumbers('SuperHeroWalking', {start: 8, end: 15}),
+            frames: scene.anims.generateFrameNumbers('SuperHeroWalking', {start: 8, end: 13}),
             frameRate: 10,
             repeat: -1
         });
