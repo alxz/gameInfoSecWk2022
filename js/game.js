@@ -185,7 +185,7 @@ App.prototype.start = function () {
         // SuperMan
         this.load.spritesheet('SuperHeroStanding', 'png/SuperMan_Frames_60x80x7.png', {frameWidth: 60, frameHeight: 80});
         // Super Man Goes Right
-        this.load.spritesheet('SuperHeroWalking', 'png/SuperMan_FwRrFrames_60x80x14.png', {frameWidth: 60, frameHeight: 80});
+        this.load.spritesheet('SuperHero', 'png/SuperMan_FwRrFrames_60x80x30.png', {frameWidth: 60, frameHeight: 80});
 
     }
 
@@ -524,8 +524,6 @@ App.prototype.start = function () {
             }
         }
         buildStory(0, 1, scene);
-
-        initSuperManNPC(scene, 300,300);
         initPlayer(scene);
 
     }
@@ -1097,7 +1095,7 @@ App.prototype.start = function () {
     function stopPlayer() {
         player.setVelocityX(0);
         player.setVelocityY(0);
-        player.anims.play('turn');
+        player.anims.play('turn',true);
         //if (!isBrowserIE) {
          soundStep.pause(); //SOUND MUSIC STOPED To Debug IE11 issues
        //}
@@ -1155,42 +1153,9 @@ App.prototype.start = function () {
         }
     }
 
-    function initSuperManNPC(scene,x,y) {
-        superMan = scene.physics.add.sprite(x, y, 'SuperHeroStanding');
-        console.log('SuperHeroStanding', superMan);
-
-        superManWalk = scene.physics.add.sprite(x+150, y, 'SuperHeroWalking');
-        console.log('SuperHeroWalking', superManWalk);
-
-        //  Player physics properties. Give the little guy a slight bounce.
-        superMan.setBounce(0.2);
-        //player.setCollideWorldBounds(true);
-        //  Our player animations, turning, walking left and walking right.
-        scene.anims.create({
-            key: 'superHerostandFaceFwd',
-            frames: scene.anims.generateFrameNumbers('SuperHeroStanding', {start: 0, end: 7}),
-            frameRate: 10,
-            repeat: -1
-        });
-        superMan.setDepth(12);
-
-        superMan.anims.play('superHerostandFaceFwd', true);
-
-        scene.anims.create({
-            key: 'superHeroWalkRight',
-            frames: scene.anims.generateFrameNumbers('SuperHeroWalking', {start: 8, end: 13}),
-            frameRate: 10,
-            repeat: -1
-        });
-        superManWalk.setDepth(12);
-
-        superManWalk.anims.play('superHeroWalkRight', true);
-
-        // superMan.disableBody(false, true);
-    }
-
     function initPlayer(scene) {
-        player = scene.physics.add.sprite(400, 300, 'dude');
+        // player = scene.physics.add.sprite(400, 300, 'dude');
+        player = scene.physics.add.sprite(400, 300, 'SuperHero');
         //console.log('player', player);
         player.doorKeys = 0;
         player.mazePrevCoord = { mazeX: 0,  mazeY: 0};  //required to id miniMap lcoation
@@ -1202,33 +1167,44 @@ App.prototype.start = function () {
         //  Our player animations, turning, walking left and walking right.
         scene.anims.create({
             key: 'left',
-            frames: scene.anims.generateFrameNumbers('dude', {start: 0, end: 3}),
+            // frames: scene.anims.generateFrameNumbers('dude', {start: 0, end: 3}),
+            frames: scene.anims.generateFrameNumbers('SuperHero', {start: 12, end: 17}),
             frameRate: 10,
             repeat: -1
         });
         scene.anims.create({
             key: 'up',
-            frames: scene.anims.generateFrameNumbers('dude', {start: 8, end: 11}),
+            // frames: scene.anims.generateFrameNumbers('dude', {start: 8, end: 11}),            
+            frames: scene.anims.generateFrameNumbers('SuperHero', {start: 24, end: 29}),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        // scene.anims.create({
+        //     key: 'turn',
+        //     frames: [{key: 'dude', frame: 4}],
+        //     frameRate: 20
+        // });
+
+        scene.anims.create({
+            key: 'turn',
+            frames: scene.anims.generateFrameNumbers('SuperHero', {start: 0, end: 5}),
             frameRate: 10,
             repeat: -1
         });
 
         scene.anims.create({
-            key: 'turn',
-            frames: [{key: 'dude', frame: 4}],
-            frameRate: 20
-        });
-
-        scene.anims.create({
             key: 'right',
-            frames: scene.anims.generateFrameNumbers('dude', {start: 12, end: 15}),
+            // frames: scene.anims.generateFrameNumbers('dude', {start: 12, end: 15}),
+            frames: scene.anims.generateFrameNumbers('SuperHero', {start: 6, end: 11}),
             frameRate: 10,
             repeat: -1
         });
 
         scene.anims.create({
             key: 'down',
-            frames: scene.anims.generateFrameNumbers('dude', {start: 4, end: 7}),
+            // frames: scene.anims.generateFrameNumbers('dude', {start: 4, end: 7}),
+            frames: scene.anims.generateFrameNumbers('SuperHero', {start: 18, end: 23}),
             frameRate: 10,
             repeat: -1
         });
