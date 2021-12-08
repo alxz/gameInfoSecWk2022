@@ -123,8 +123,6 @@ App.prototype.start = function () {
     function preload() {
         this.load.json('megaMAP', 'rest/getMap.php');
 
-        //this.load.image('sky', 'assets/sky.png');
-        // C:\Temp\xamppVC15\htdocs\gameInfoSecWk2022\assets\meitpower_lq.mp3
         // this.load.audio('theme', [ 'assets/bgCut1.mp3'  ]);
         this.load.audio('theme', [ 'assets/meitpower_lq.mp3'  ]);
         //baseRoomBack = RoomBG_red.png 1000 px X 650px
@@ -170,14 +168,17 @@ App.prototype.start = function () {
         this.load.spritesheet('ComputerScreenSet6', 'png/ComputerScreenSet6x750x85.png', {frameWidth: 125, frameHeight: 85});
         this.load.spritesheet('cafeTableBrown', 'png/cafeteriaTablesSprite.png', {frameWidth: 80, frameHeight: 75});
         this.load.spritesheet('docOther', 'png/docOther.png', {frameWidth: 50, frameHeight: 75}); //docOther.png
-        this.load.spritesheet('HSoloMan', 'png/HSoloMan1_Sprite.png', {frameWidth: 50, frameHeight: 75}); //docOther.png
+        // docAlEinst.png
+        this.load.spritesheet('docAlEinst', 'png/docAlEinstV2.png', {frameWidth: 50, frameHeight: 75}); //docAlEinst.png
+
+        this.load.spritesheet('HSoloMan', 'png/HSoloMan1_Sprite.png', {frameWidth: 50, frameHeight: 75}); 
         this.load.spritesheet('HSoloManTypingPhoto', 'png/HSoloMan_TypingPhonePhoto.png', {frameWidth: 50, frameHeight: 75});
         this.load.spritesheet('dude', 'png/docMUHC50x75L4U4D4R4.png', {frameWidth: 50, frameHeight: 75});
         this.load.spritesheet('docWalk4w', 'png/doctorWalkFourWay.png', {frameWidth: 50, frameHeight: 75});
 
         this.load.spritesheet('compDesk4x4', 'png/compDesk4x4v3Lock.png', {frameWidth: 75, frameHeight: 75});
-        //yellowDocOne.png
         this.load.spritesheet('yellowDocOne', 'png/yellowDocOne.png', {frameWidth: 64, frameHeight: 72});
+        this.load.spritesheet('docAlEinstStand', 'png/docAlEinstStand.png', {frameWidth: 50, frameHeight: 75});
         //HSoloMan_SingleImg_Sprite
         this.load.spritesheet('HSoloSingleImg', 'png/HSoloMan_SingleImg_Sprite.png', {frameWidth: 64, frameHeight: 72});
         this.load.spritesheet('HSoloStandUp', 'png/HSoloMan_StandUp_Sprite.png', {frameWidth: 50, frameHeight: 75});

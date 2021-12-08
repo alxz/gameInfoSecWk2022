@@ -612,31 +612,31 @@ function getSceneSprites(coordX, coordY) {
                     animList: [
                         {
                             key: 'standFace',
-                            frames: { spriteName: 'yellowDocOne', start: 0, end: 0 },
+                            frames: { spriteName: 'docAlEinstStand', start: 0, end: 0 },
                             frameRate: 1,
                             repeat: -1
                         },
                         {
                             key: 'walkUp',
-                            frames: { spriteName: 'docOther', start: 4, end: 7 },
+                            frames: { spriteName: 'docAlEinst', start: 4, end: 7 },
                             frameRate: 5,
                             repeat: -1
                         },
                         {
                             key: 'walkDown',
-                            frames: { spriteName: 'docOther', start: 8, end: 11 },
+                            frames: { spriteName: 'docAlEinst', start: 8, end: 11 },
                             frameRate: 5,
                             repeat: -1
                         },
                         {
                             key: 'walkLeft',
-                            frames: { spriteName: 'docOther', start: 0, end: 3 },
+                            frames: { spriteName: 'docAlEinst', start: 0, end: 3 },
                             frameRate: 5,
                             repeat: -1
                         },
                         {
                             key: 'walkRight',
-                            frames: { spriteName: 'docOther', start: 12, end: 15 },
+                            frames: { spriteName: 'docAlEinst', start: 12, end: 15 },
                             frameRate: 5,
                             repeat: -1
                         }
@@ -804,43 +804,43 @@ function getSceneSprites(coordX, coordY) {
                     animList: [
                         {
                             key: 'standFace',
-                            frames: { spriteName: 'yellowDocOne', start: 0, end: 0 },
+                            frames: { spriteName: 'docAlEinstStand', start: 0, end: 0 },
                             frameRate: 1,
                             repeat: 1
                         },
                         {
                             key: 'stayUp',
-                            frames: { spriteName: 'docOther', start: 4, end: 4 },
+                            frames: { spriteName: 'docAlEinst', start: 4, end: 4 },
                             frameRate: 5,
                             repeat: 1
                         },
                         {
                             key: 'stayDown',
-                            frames: { spriteName: 'docOther', start: 8, end: 8 },
+                            frames: { spriteName: 'docAlEinst', start: 8, end: 8 },
                             frameRate: 5,
                             repeat: 1
                         },
                         {
                             key: 'stayLeft',
-                            frames: { spriteName: 'docOther', start: 0, end: 0 },
+                            frames: { spriteName: 'docAlEinst', start: 0, end: 0 },
                             frameRate: 5,
                             repeat: 1
                         },
                         {
                             key: 'stayRight',
-                            frames: { spriteName: 'docOther', start: 12, end: 12 },
+                            frames: { spriteName: 'docAlEinst', start: 12, end: 12 },
                             frameRate: 5,
                             repeat: 1
                         },
                         {
                             key: 'walkLeft',
-                            frames: { spriteName: 'docOther', start: 0, end: 3 },
+                            frames: { spriteName: 'docAlEinst', start: 0, end: 3 },
                             frameRate: 5,
                             repeat: -1
                         },
                         {
                             key: 'walkRight',
-                            frames: { spriteName: 'docOther', start: 12, end: 15 },
+                            frames: { spriteName: 'docAlEinst', start: 12, end: 15 },
                             frameRate: 5,
                             repeat: -1
                         }

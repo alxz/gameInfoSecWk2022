@@ -4,12 +4,14 @@ require_once('classes.php');
 
 function mazeStruc () {
   //$arrMaze = [];
-  // $arrMaze = array(
-  //   0 => array ("0" => "1", "1" => "1", "2" => "1", "3" => "0"),
-  //   1 => array ("0" => "1", "1" => "0", "2" => "1", "3" => "1"),
-  //   2 => array ("0" => "1", "1" => "1", "2" => "0", "3" => "1"),
-  //   3 => array ("0" => "0", "1" => "1", "2" => "1", "3" => "1")
-  // );
+  $centerMaze = array(
+    0 => array ("0" => "1", "1" => "1", "2" => "1", "3" => "1", "4" => "1"),
+    1 => array ("0" => "1", "1" => "0", "2" => "1", "3" => "0", "4" => "1"),
+    2 => array ("0" => "1", "1" => "0", "2" => "0", "3" => "0", "4" => "1"),
+    3 => array ("0" => "1", "1" => "0", "2" => "1", "3" => "0", "4" => "1"),
+    4 => array ("0" => "1", "1" => "1", "2" => "1", "3" => "1", "4" => "1")
+  );
+
   $arrMazeA = array(
     0 => array ("0" => "1", "1" => "1", "2" => "1", "3" => "1", "4" => "0"),
     1 => array ("0" => "1", "1" => "0", "2" => "0", "3" => "1", "4" => "1"),
@@ -33,21 +35,32 @@ function mazeStruc () {
     3 => array ("0" => "1", "1" => "1", "2" => "0", "3" => "0", "4" => "1"),
     4 => array ("0" => "0", "1" => "1", "2" => "1", "3" => "1", "4" => "1")
   );
-  $randNum = rand(0,2);
-  switch  ($randNum) {
-    case 0:
-      $arrMaze = $arrMazeA;
-      break;
-    case 1:
-    $arrMaze = $arrMazeB;
-      break;
-    case 2:
-    $arrMaze = $arrMazeC;
-      break;
-    default:
-      $arrMaze = $arrMazeA;
-  }
 
+  $allMazeArr = array(
+    0 => $arrMazeA,
+    1 => $arrMazeB,
+    2 => $arrMazeC
+  );
+
+  $randNum = rand(0,2);
+  // switch  ($randNum) {
+  //   case 0:
+  //     $arrMaze = $arrMazeA;
+  //     break;
+  //   case 1:
+  //   $arrMaze = $arrMazeB;
+  //     break;
+  //   case 2:
+  //   $arrMaze = $arrMazeC;
+  //     break;
+  //   default:
+  //     $arrMaze = $arrMazeA;
+  // }
+
+  // echo "<script>console.log('" . json_encode($arrMaze) . "');</script>";
+  $arrMaze = $allMazeArr[$randNum];  
+  //echo "<script>console.log('" . json_encode($arrMaze) . "');</script>";
+  $arrMaze = $centerMaze;
   return $arrMaze;
 }
 

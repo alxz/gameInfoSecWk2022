@@ -85,31 +85,31 @@
             animList: [
               {
                 key: 'standFace',
-                frames: { spriteName: 'yellowDocOne', start: 0, end: 0 },
+                frames: { spriteName: 'docAlEinstStand', start: 0, end: 0 },
                 frameRate: 1,
                 repeat: -1
               },
               {
                 key: 'walkUp',
-                frames: { spriteName: 'docOther', start: 4, end: 7 },
+                frames: { spriteName: 'docAlEinst', start: 4, end: 7 },
                 frameRate: 5,
                 repeat: -1
               },
               {
                 key: 'walkDown',
-                frames: { spriteName: 'docOther', start: 8, end: 11 },
+                frames: { spriteName: 'docAlEinst', start: 8, end: 11 },
                 frameRate: 5,
                 repeat: -1
               },
               {
                 key: 'walkLeft',
-                frames: { spriteName: 'docOther', start: 0, end: 3 },
+                frames: { spriteName: 'docAlEinst', start: 0, end: 3 },
                 frameRate: 5,
                 repeat: -1
               },
               {
                 key: 'walkRight',
-                frames: { spriteName: 'docOther', start: 12, end: 15 },
+                frames: { spriteName: 'docAlEinst', start: 12, end: 15 },
                 frameRate: 5,
                 repeat: -1
               }
@@ -553,13 +553,16 @@ function dudeUpdate(player) {
     //this.load.spritesheet('dude', 'png/docMUHCR4U1L4.png', {frameWidth: 50, frameHeight: 75});
     //docMUHC50x75L4U4D4R4
     this.load.spritesheet('docOther', 'png/docOther.png', {frameWidth: 50, frameHeight: 75}); //docOther.png
-    this.load.spritesheet('HSoloMan', 'png/HSoloMan1_Sprite.png', {frameWidth: 50, frameHeight: 75}); //docOther.png
+    this.load.spritesheet('docAlEinst', 'png/docAlEinst.png', {frameWidth: 50, frameHeight: 75}); //docAlEinst.png
+    this.load.spritesheet('HSoloMan', 'png/HSoloMan1_Sprite.png', {frameWidth: 50, frameHeight: 75}); 
     this.load.spritesheet('HSoloManTypingPhoto', 'png/HSoloMan_TypingPhonePhoto.png', {frameWidth: 50, frameHeight: 75});
     this.load.spritesheet('dude', 'png/docMUHC50x75L4U4D4R4.png', {frameWidth: 50, frameHeight: 75});
 
     this.load.spritesheet('compDesk4x4', 'png/compDesk4x4v2Lock.png', {frameWidth: 75, frameHeight: 75});
     //yellowDocOne.png
     this.load.spritesheet('yellowDocOne', 'png/yellowDocOne.png', {frameWidth: 64, frameHeight: 72});
+    //docAlEinstStand
+    this.load.spritesheet('docAlEinstStand', 'png/docAlEinstStand.png', {frameWidth: 50, frameHeight: 75});
     //HSoloMan_SingleImg_Sprite
     this.load.spritesheet('HSoloSingleImg', 'png/HSoloMan_SingleImg_Sprite.png', {frameWidth: 64, frameHeight: 72});
     this.load.spritesheet('HSoloStandUp', 'png/HSoloMan_StandUp_Sprite.png', {frameWidth: 50, frameHeight: 75});
