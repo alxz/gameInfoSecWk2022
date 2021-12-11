@@ -46,7 +46,7 @@
         $jsonListAllQ[] = $arr;
     }
     shuffle($jsonListAllQ); //
-    $creator = "by Alexey Zapromyotov (c) 2019";
+    $creator = "by Alexey Zapromyotov (c) 2019 - 2022";
     // echo '<br>=====<br>';
     $mazeMapArr = mazeStruc();
     $maxYSize = count($mazeMapArr) - 1; //array indexes starts from 0

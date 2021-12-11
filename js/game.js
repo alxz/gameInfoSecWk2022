@@ -121,6 +121,9 @@ App.prototype.start = function () {
     $("#langChange").bind("click", changeLanguage);
 
     function preload() {
+        //==================
+        _this = this;
+        //==================
         this.load.json('megaMAP', 'rest/getMap.php');
 
         // this.load.audio('theme', [ 'assets/bgCut1.mp3'  ]);
@@ -151,12 +154,13 @@ App.prototype.start = function () {
         this.load.spritesheet('doorD', 'png/doorDsprite.png', {frameWidth: 180, frameHeight: 180});
         this.load.spritesheet('doorL', 'png/doorLsprite.png', {frameWidth: 180, frameHeight: 180});
         this.load.spritesheet('doorR', 'png/doorRsprite.png', {frameWidth: 180, frameHeight: 180});
+
+        this.load.spritesheet('elevDoorFace', 'png/doorD.png', {frameWidth: 180, frameHeight: 180});
         //==============================================
         //blocks:
         this.load.image('blockRed', 'png/block20x20red.png');
         //this.load.image('blockRed', 'png/block20x20.png');
-        //==================
-        _this = this;
+        //==============================================
         this.load.image('gold-key', 'png/goldenKey.png'); //gold-key
         this.load.image('messageBoard', 'png/subTitleBackBrownStiches.png');
         this.load.image('star', 'assets/star.png');
@@ -167,8 +171,9 @@ App.prototype.start = function () {
         this.load.spritesheet('compDeskScrBlank', 'png/ComputerSetOffV2.png', {frameWidth: 125, frameHeight: 125}); //officeCompDesk
         this.load.spritesheet('ComputerScreenSet6', 'png/ComputerScreenSet6x750x85.png', {frameWidth: 125, frameHeight: 85});
         this.load.spritesheet('cafeTableBrown', 'png/cafeteriaTablesSprite.png', {frameWidth: 80, frameHeight: 75});
+
+        this.load.spritesheet('scientistTable', 'png/scientistTable160x225x6frames.png', {frameWidth: 80, frameHeight: 75});
         this.load.spritesheet('docOther', 'png/docOther.png', {frameWidth: 50, frameHeight: 75}); //docOther.png
-        // docAlEinst.png
         this.load.spritesheet('docAlEinst', 'png/docAlEinstV2.png', {frameWidth: 50, frameHeight: 75}); //docAlEinst.png
 
         this.load.spritesheet('HSoloMan', 'png/HSoloMan1_Sprite.png', {frameWidth: 50, frameHeight: 75}); 
@@ -185,8 +190,7 @@ App.prototype.start = function () {
         
         // SuperMan
         this.load.spritesheet('SuperHeroStanding', 'png/SuperMan_Frames_60x80x7.png', {frameWidth: 60, frameHeight: 80});
-        // Super Man Goes Right
-        this.load.spritesheet('SuperHero', 'png/SuperMan_FwRrFrames_60x80x30.png', {frameWidth: 60, frameHeight: 80});
+        this.load.spritesheet('SuperHero', 'png/SuperManMoves_60x80x30.png', {frameWidth: 60, frameHeight: 80});
 
     }
 
@@ -291,11 +295,10 @@ App.prototype.start = function () {
             immovable: true
         });
         walls = scene.physics.add.staticGroup();
-        doorkeys = scene.physics.add.group();
+        doorkeys = scene.physics.add.group();        
 
-        // officeCompDesk = scene.physics.add.group({
-        //     immovable: true
-        // }); //this.load.image('computerSetOff', 'png/ComputerSetOff.png')
+        // scientistTable = scene.physics.add.sprite(2200, 1600, 'scientistTable');
+        //this.load.image('computerSetOff', 'png/ComputerSetOff.png')
         // officeCompDesk.setDepth(0);
         hospitalBed = scene.physics.add.group({
             immovable: true
@@ -310,7 +313,7 @@ App.prototype.start = function () {
             for (var x = 0; x < mapDoors.length; x++) {
                 //mapDoors[x]
                 mapDoor = mapDoors[x];
-                // TODO:
+                // init room center coordinaters:
                 var indX = 800 * x;
                 var indY = 520 * y;
                 //console.log('generateArrayMap mapDoor: ', mapDoor);
@@ -319,7 +322,7 @@ App.prototype.start = function () {
                 // scene.add.image(400 +indX, 270 + indY, roomName).setScale(0.8);
 
                 if (x == maxRoomCountX - 1 && y == maxRoomCountY - 1) {
-                    //finalRoom
+                    //finalRoom - settle the destination coordinates:
                     scene.add.image(400 + indX, 270 + indY, 'finalRoom').setScale(0.8);
                 } else {
                     var randomRoom = (Math.round(Math.random() * 4))+1; //RoomBG_0
@@ -524,8 +527,28 @@ App.prototype.start = function () {
                 //=================================================================
             }
         }
+
+        // add some elevator doors:
+        elevDoor1 = scene.physics.add.sprite(2000, 1600, 'elevDoorFace');
+
+        
+
         buildStory(0, 1, scene);
         initPlayer(scene);
+
+        // add some office lab- table:
+        scientistTables = scene.physics.add.group({
+            immovable: true
+        }); 
+        var scientistTable = scientistTables.create(2100, 1800, 'scientistTable').setScale(1.2);
+
+        scene.anims.create({
+            key: 'scientistTable',
+            frames: scene.anims.generateFrameNumbers('scientistTable', {start: 0, end: 5}),
+            frameRate: 5,
+            repeat: -1
+        });
+        scientistTable.anims.play('scientistTable', true);
 
     }
     function buildStory(coordX, coordY,scene) {
@@ -1156,7 +1179,8 @@ App.prototype.start = function () {
 
     function initPlayer(scene) {
         // player = scene.physics.add.sprite(400, 300, 'dude');
-        player = scene.physics.add.sprite(400, 300, 'SuperHero');
+        // player = scene.physics.add.sprite(400, 300, 'SuperHero');
+        player = scene.physics.add.sprite(2000, 1900, 'SuperHero');
         //console.log('player', player);
         player.doorKeys = 0;
         player.mazePrevCoord = { mazeX: 0,  mazeY: 0};  //required to id miniMap lcoation
