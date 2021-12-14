@@ -365,6 +365,9 @@ App.prototype.start = function () {
 
         //megaMAP.doorsMAP
         for (var y = 0; y < megaMAP.doorsMAP.length; y++) {
+            // read all animated stories into the array:
+            arrAllStories = getAllStories();
+
             //megaMAP.doorsMAP[y]
             var mapDoors = megaMAP.doorsMAP[y];
             var mapDoor=[];
@@ -517,11 +520,18 @@ App.prototype.start = function () {
                             myDude.roomCoord = { x: x, y: y};
                             myDude.initCoord = { x: coord.x, y: coord.y};
                             //console.log('NPC [',myDude.id, ']', ' x=', myDude.initCoord .x, 'y=', myDude.initCoord.y);
+                            for (var s=0; s < arrAllStories.length; s++ ){
+                                if (arrAllStories[s].rmCoord.x === myDude.roomCoord.x && 
+                                    arrAllStories[s].rmCoord.y === myDude.roomCoord.y) {
+                                        console.log('!!! Found a story for this room. StoryID: ', arrAllStories[s].storyId);
+                                    }
+                            }
+                            
                             myDude.anims.play('questionMarkRotates', true);
                             myDude.disableBody(false, true); // do not remove the object, but hide it: (true,false)
 
 
-                            //console.log("question from key", myKey.question);
+                            console.log("question from key: ",  myDude.question);
                             keyIndex++;
                             arrKeys[arrKeys.length] = coord;
                         }
@@ -548,7 +558,8 @@ App.prototype.start = function () {
         npcGroup = scene.physics.add.group({
             immovable: true
         });
-        arrAllStories = getAllStories(); //console.log("==> arrAllStories:  ", arrAllStories);
+        arrAllStories = getAllStories(); //
+        console.log("==> arrAllStories:  ", arrAllStories);
         arrScenes = getSceneSprites(coordX,coordY) ;
         //==================== /==================== /====================
         //==================== /==================== /====================
@@ -1037,6 +1048,11 @@ App.prototype.start = function () {
 
     function collectKey(player, key) {
         // player clicks the key (or hit the key sprite):
+        var roomStoryId;
+        if (key.roomCoord != undefined && key.roomCoord != null) {
+            //console.log('=>> This room has special story! Coordinates: ',key.roomCoord);
+            // console.log('=>> This room has special story! StoryID: ',key.storyId);
+        }
         try {
           userTimer.start();
         } catch (e) {
