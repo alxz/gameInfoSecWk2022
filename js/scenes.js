@@ -564,6 +564,130 @@ function getAllStories() {
                     lastAnimKey: 'faceUp'
                 }
             ]
+        },
+        {
+            storyId: 4,
+            rmCoord: { x: 2, y: 4 },
+            nextScene: 0,
+            lastScene: 5,
+            questCoord: { x: 400, y: 300 },
+            decorXY: { x: 400, y: 200} ,
+            sceneList: [
+                {
+                    sceneId: 0,
+                    spriteId: 0,
+                    objType: 'DECORATION',
+                    npcName: 'scientistTable',
+                    animKey: 'scientistTableAnimated',
+                    moveTo: 'NO',
+                    zIndex: 11,
+                    spriteScale: 1.5,
+                    vectorXY: { x: 0, y: 0 },
+                    startXY: { x: 400, y: 380 },
+                    endXY: { x: 400, y: 380 },
+                    timeFrame: 0,
+                    txtLabel: 'scientistTable',
+                    txtStr: '',
+                    initRead: false,
+                    removeSprite: false,
+                    lastAnimKey: 'scientistTableAnimated'
+                },
+                {
+                    sceneId: 1,
+                    spriteId: 1,
+                    objType: 'NPC',
+                    npcName: 'ScientistPassword',
+                    animKey: 'ScientistWalkLeft',
+                    moveTo: 'LEFT',
+                    zIndex: 10,
+                    spriteScale: 1,
+                    vectorXY: { x: -.5, y: 0 },
+                    startXY: { x: 450, y: 350 }, //{ x: 650, y: 720 }
+                    endXY: { x: 300, y: 350 },
+                    timeFrame: 5,
+                    txtLabel: 'EmplSpeech',
+                    txtStr: ' Employee: I need to create \r\n A strong password!',
+                    initRead: false,
+                    removeSprite: false,
+                    lastAnimKey: 'ScientistWalkLeft'
+                },
+                {
+                    sceneId: 2,
+                    spriteId: 1,
+                    objType: 'NPC',
+                    npcName: 'ScientistPassword',
+                    animKey: 'ScientistWalkRight',
+                    moveTo: 'RIGHT',
+                    zIndex: 10,
+                    spriteScale: 1,
+                    vectorXY: { x: +.5, y: 0 },
+                    startXY: { x: 300, y: 350 }, //{ x: 650, y: 720 }
+                    endXY: { x: 450, y: 350 },
+                    timeFrame: 5,
+                    txtLabel: 'EmplSpeech',
+                    txtStr: ' Employee: This software \r\n wont work without it !',
+                    initRead: false,
+                    removeSprite: false,
+                    lastAnimKey: 'ScientistWalkRight'
+                },
+                {
+                    sceneId: 3,
+                    spriteId: 1,
+                    objType: 'NPC',
+                    npcName: 'ScientistPassword',
+                    animKey: 'ScientistWalkLeft',
+                    moveTo: 'LEFT',
+                    zIndex: 10,
+                    spriteScale: 1,
+                    vectorXY: { x: -.5, y: 0 },
+                    startXY: { x: 450, y: 350 },
+                    endXY: { x: 400, y: 350 },
+                    timeFrame: 5,
+                    txtLabel: 'EmplSpeech',
+                    txtStr: ' Employee: I need to create \r\n A strong password!',
+                    initRead: false,
+                    removeSprite: false,
+                    lastAnimKey: 'ScientistWalkLeft'
+                },
+                {
+                    sceneId: 4,
+                    spriteId: 1,
+                    objType: 'NPC',
+                    npcName: 'ScientistPassword',
+                    animKey: 'ScientistStandFaceFW',
+                    moveTo: 'NO',
+                    zIndex: 10,
+                    spriteScale: 1,
+                    vectorXY: { x: 0, y: 0 },
+                    startXY: { x: 400, y: 350 },
+                    endXY: { x: 400, y: 350 },
+                    timeFrame: 5,
+                    txtLabel: 'EmplSpeech',
+                    txtStr: ' Employee: Could you please help me\r\n with the strong password creation?',
+                    initRead: false,
+                    removeSprite: false,
+                    lastAnimKey: 'ScientistStandFaceFW'
+                },
+                {
+                    sceneId: 5,
+                    spriteId: 1,
+                    objType: 'NPC',
+                    npcName: 'ScientistPassword',
+                    animKey: 'docAlEinstTypingFW',
+                    moveTo: 'NO',
+                    zIndex: 10,
+                    spriteScale: 1,
+                    vectorXY: { x: 0, y: 0 },
+                    startXY: { x: 400, y: 360 },
+                    endXY: { x: 400, y: 360 },
+                    timeFrame: 5,
+                    txtLabel: 'EmplSpeech',
+                    txtStr: '..typing ..',
+                    initRead: false,
+                    removeSprite: false,
+                    lastAnimKey: 'docAlEinstTypingFW'
+                }
+            ]
         }
     ]
 }
@@ -993,6 +1117,88 @@ function getSceneSprites(coordX, coordY) {
                             frames: { spriteName: 'compDeskScrBlank', start: 0, end: 0 },
                             frameRate: 5,
                             repeat: 1
+                        }
+                    ]
+                }
+            ],
+            animTextIndex: 0,
+            animTextMaxIndex: 3
+        },
+        {
+            sceneId: 1,
+            sceneName: 'makeStrongPassword',
+            cCoordX : coordX,
+            cCoordY : coordY,
+            animNPCGroup : [
+                {
+                    id: 0,
+                    isActive: false,
+                    objType: 'DECORATION',
+                    npcName: 'scientistTable',
+                    defaultKey: 'scientistTable',
+                    npcCoordX : (680),
+                    npcCoordY : (400),
+                    zIndex: 0,
+                    animList: [
+                        {
+                            key: 'scientistTableStill',
+                            frames: { spriteName: 'scientistTable', start: 0, end: 0 },
+                            frameRate: 1,
+                            repeat: -1
+                        },
+                        {
+                            key: 'scientistTableAnimated',
+                            frames: { spriteName: 'scientistTable', start: 0, end: 5 },
+                            frameRate: 6,
+                            repeat: -1
+                        }
+                    ]
+                },
+                {
+                    id: 1,
+                    isActive: true,
+                    objType: 'NPC',
+                    npcName: 'ScientistPassword',
+                    defaultKey: 'ScientistStandFaceFW',
+                    npcCoordX : (650),
+                    npcCoordY : (380),
+                    zIndex: 10,
+                    animList: [ 
+                        {
+                            key: 'ScientistStandFaceFW',
+                            frames: { spriteName: 'docAlEinstStand', start: 0, end: 0 },
+                            frameRate: 1,
+                            repeat: -1
+                        },
+                        {
+                            key: 'docAlEinstTypingFW',
+                            frames: { spriteName: 'docAlEinstTypingFW', start: 0, end: 5 },
+                            frameRate: 5,
+                            repeat: -1
+                        },
+                        {
+                            key: 'ScientistWalkUp',
+                            frames: { spriteName: 'docAlEinst', start: 4, end: 7 },
+                            frameRate: 5,
+                            repeat: -1
+                        },
+                        {
+                            key: 'ScientistWalkDown',
+                            frames: { spriteName: 'docAlEinst', start: 8, end: 11 },
+                            frameRate: 5,
+                            repeat: -1
+                        },
+                        {
+                            key: 'ScientistWalkLeft',
+                            frames: { spriteName: 'docAlEinst', start: 0, end: 3 },
+                            frameRate: 5,
+                            repeat: -1
+                        },
+                        {
+                            key: 'ScientistWalkRight',
+                            frames: { spriteName: 'docAlEinst', start: 12, end: 15 },
+                            frameRate: 5,
+                            repeat: -1
                         }
                     ]
                 }

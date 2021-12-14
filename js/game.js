@@ -184,12 +184,15 @@ App.prototype.start = function () {
         this.load.spritesheet('compDesk4x4', 'png/compDesk4x4v3Lock.png', {frameWidth: 75, frameHeight: 75});
         this.load.spritesheet('yellowDocOne', 'png/yellowDocOne.png', {frameWidth: 64, frameHeight: 72});
         this.load.spritesheet('docAlEinstStand', 'png/docAlEinstStand.png', {frameWidth: 50, frameHeight: 75});
+        this.load.spritesheet('docAlEinstTypingFW', 'png/docAlEinstTypingFWV2.png', {frameWidth: 50, frameHeight: 75});
         //HSoloMan_SingleImg_Sprite
         this.load.spritesheet('HSoloSingleImg', 'png/HSoloMan_SingleImg_Sprite.png', {frameWidth: 64, frameHeight: 72});
         this.load.spritesheet('HSoloStandUp', 'png/HSoloMan_StandUp_Sprite.png', {frameWidth: 50, frameHeight: 75});
         
         // SuperMan
         this.load.spritesheet('SuperHeroStanding', 'png/SuperMan_Frames_60x80x7.png', {frameWidth: 60, frameHeight: 80});
+        //SuperManStandFW
+        this.load.spritesheet('SuperManStandFW', 'png/SuperManStandFW.png', {frameWidth: 60, frameHeight: 80});
         this.load.spritesheet('SuperHero', 'png/SuperManMoves_60x80x30.png', {frameWidth: 60, frameHeight: 80});
 
     }
@@ -481,7 +484,7 @@ App.prototype.start = function () {
                         //this is our final room - no keys required...
                         //TODO: place a final room sprite here!!!
                         //draw the patient: hospitalBed
-                        hospitalBed.create(400 + 800 * (x), 270 + 520 * (y), 'patientEmptyPlaceHolder').setScale(1.2);
+                        hospitalBed.create(440 + 800 * (x), 300 + 520 * (y), 'patientEmptyPlaceHolder').setScale(1);
 
                     } else {
                         var coord = getKeyCordinateWithProximity(arrKeys, 100);
@@ -529,26 +532,10 @@ App.prototype.start = function () {
         }
 
         // add some elevator doors:
-        elevDoor1 = scene.physics.add.sprite(2000, 1600, 'elevDoorFace');
+        elevDoor1 = scene.physics.add.sprite(2000, 1650, 'elevDoorFace');       
 
-        
-
-        buildStory(0, 1, scene);
+        buildStory(2, 3, scene); //here we read stories animation and sprites set
         initPlayer(scene);
-
-        // add some office lab- table:
-        scientistTables = scene.physics.add.group({
-            immovable: true
-        }); 
-        var scientistTable = scientistTables.create(2100, 1800, 'scientistTable').setScale(1.2);
-
-        scene.anims.create({
-            key: 'scientistTable',
-            frames: scene.anims.generateFrameNumbers('scientistTable', {start: 0, end: 5}),
-            frameRate: 5,
-            repeat: -1
-        });
-        scientistTable.anims.play('scientistTable', true);
 
     }
     function buildStory(coordX, coordY,scene) {
@@ -568,7 +555,7 @@ App.prototype.start = function () {
         for (let k=0; k< arrScenes.length; k++) {
             // going over an array: arrScenes
             var sceneAnimGrp = arrScenes[k].animNPCGroup;
-            // console.log("===> arrScenes Objects[",k,"]",arrScenes[k]);
+            console.log("===> arrScenes Objects[",k,"]",arrScenes[k]);
             // ************ ========== animNPCGroup start: ============ ************
             for (let i=0; i < sceneAnimGrp.length; i++) {
                 //animNPCGroup - we loop over the group of sprites:
@@ -583,6 +570,7 @@ App.prototype.start = function () {
 
                 // console.log("===> npcName (sceneAnimGrp[",i,"])",npcName);
                 // console.log("===> npcId (sceneAnimGrp[",i,"])",npcId);
+                console.log("===> sceneAnimGrp Object (sceneAnimGrp[",i,"])",sceneAnimGrp);
 
                 for (let m=0; m < myObj.animList.length; m++ ) {
                     //reading animation parameters:
@@ -591,7 +579,7 @@ App.prototype.start = function () {
                     var animStart = myObj.animList[m].frames.start;
                     var animEnd = myObj.animList[m].frames.end;
                     var animFrameRate = myObj.animList[m].frameRate;
-                    var animRepeat = myObj.animList[m].repeat;
+                    var animRepeat = myObj.animList[m].repeat;                    
                     //building animation resources:
                     scene.anims.create({
                         key: animKey,
@@ -617,16 +605,21 @@ App.prototype.start = function () {
                     }
                 });
                 if (isUniqueSpriteId) {
-                    var objSprite = npcGroup.create(aSt.startXY.x + (arrAllStories[j].rmCoord.x * cWidth) , aSt.startXY.y
-                        + (arrAllStories[j].rmCoord.y * cHeight) , aSt.animKey + "_" + arrAllStories[j].storyId + "_" + aSt.sceneId).setScale(1);
+                    var objSprite = npcGroup.create(
+                        aSt.startXY.x + (arrAllStories[j].rmCoord.x * cWidth) , 
+                        aSt.startXY.y + (arrAllStories[j].rmCoord.y * cHeight) , 
+                        aSt.animKey + "_" + arrAllStories[j].storyId + "_" + aSt.sceneId);
                     objSprite.npcDefaultKey = aSt.npcName + "_" + aSt.animKey;
                     objSprite.spriteId = aSt.spriteId;
                     objSprite.npcName = aSt.npcName;
                     objSprite.npcId = aSt.spriteId + "_" + arrAllStories[j].storyId;
-                    // objSprite.moveVector = aSt.vectorXY;
+                    
                     objSprite.objType = aSt.objType;
+                    objSprite.spriteScale = aSt.spriteScale;
                     if (aSt.zIndex != undefined) objSprite.setDepth(aSt.zIndex); // set the display depth - z-index
-
+                    if (aSt.spriteScale != undefined && 
+                        (aSt.spriteScale > -10 && aSt.spriteScale < 100 )) 
+                            objSprite.setScale(aSt.spriteScale); // Setting the scale of the sprite if provided by config
                     if (objSprite.objType === 'DECORATION') {
                         objSprite.anims.play(objSprite.npcDefaultKey , false);
                         objSprite.disableBody(false, true);
@@ -648,10 +641,11 @@ App.prototype.start = function () {
             console.log("*** ===>  npcGroup.child[" + k + "]: ", child.npcName, " npcId: ", child.npcId, " npcDefaultKey:", child.npcDefaultKey );
             k++;
         });
-        console.log("}}}} Scene per Room Array arrAllStories: ",arrAllStories );
+        console.log("-=>>> Scene per Room Array arrAllStories: ",arrAllStories );
     }
 
     function breakingBad() {
+        // happens when we reached the destination point:
         isPause = true;
         stopPlayer();
         //SOUND MUSIC STOPPED To Debug IE11 issues
@@ -775,7 +769,6 @@ App.prototype.start = function () {
                                     //we stand up
                                     child.setVelocityX(0);
                                     child.setVelocityY(0);
-
                                     myScene.moveTo = "";
                                     setTimeout(myFunction => {
                                         // console.log("==> child XY x: ", child.x, " y:", child.y);
@@ -788,7 +781,6 @@ App.prototype.start = function () {
                                         sceneText.x = thisX - 380;
                                         sceneText.y = thisY + 200;
                                         // sceneText.setDepth(10);
-
                                         if (myScene.removeSprite) {
                                             child.disableBody(true, true); // this is to remove the key(object) from the scene
                                         } else {
@@ -912,9 +904,9 @@ App.prototype.start = function () {
                 });
                 currentScene.isActive = false;
             }
-        } else {         //lets iterate over the array of scripted scenes:
-            //subtitlesPannel.innerHTML = "";
+        } else {                    
             subtitlesPannel.innerHTML = "";
+            //lets iterate over the array of scripted scenes:
             for (let r = 0; r < arrAllStories.length; r++) {
                 var myObj = arrAllStories[r];
                 // testBoxDiv.innerHTML = "myObj.rmCoord: " + myObj.rmCoord.x + "/" +  myObj.rmCoord.y +
@@ -1044,7 +1036,7 @@ App.prototype.start = function () {
     }
 
     function collectKey(player, key) {
-
+        // player clicks the key (or hit the key sprite):
         try {
           userTimer.start();
         } catch (e) {
@@ -1056,6 +1048,7 @@ App.prototype.start = function () {
         isPause = true;
         totalQestionsAsked++;
         var ifSuccessCallback = function () {
+            // this happens when the player respond the question successfully
             //submitAnswerButton.style.display = 'none';
             playerStepBack();
             playSound(soundOk);
@@ -1144,7 +1137,9 @@ App.prototype.start = function () {
         //required to id miniMap location
         if ((player.mazePrevCoord.mazeX != player.mazeNewCoord.mazeX)
              || (player.mazePrevCoord.mazeY != player.mazeNewCoord.mazeY)) {
-               highlighMapPos(player.mazePrevCoord.mazeY,player.mazePrevCoord.mazeX,player.mazeNewCoord.mazeY,player.mazeNewCoord.mazeX,"magenta");
+               highlighMapPos(  player.mazePrevCoord.mazeY,player.mazePrevCoord.mazeX,
+                                player.mazeNewCoord.mazeY,player.mazeNewCoord.mazeX,
+                                "magenta");
                player.mazePrevCoord = { mazeX: deltaX, mazeY: deltaY };
         }
     }
@@ -1185,7 +1180,7 @@ App.prototype.start = function () {
         player.doorKeys = 0;
         player.mazePrevCoord = { mazeX: 0,  mazeY: 0};  //required to id miniMap lcoation
         player.mazeNewCoord = { mazeX: 0,  mazeY: 0}; //required to id miniMap lcoation
-         highlighMapPos(0,0,0,0,"magenta");
+        calcCoordOnMapPos(player.x,player.y); // we want to update miniMap info with player pos        
         //  Player physics properties. Give the little guy a slight bounce.
         player.setBounce(0.2);
         //player.setCollideWorldBounds(true);
@@ -1237,8 +1232,8 @@ App.prototype.start = function () {
     }
 
     function highlighMapPos(oldY,oldX,pY,pX,colorCode) {
-        var oldMapLocation = document.getElementById('y' + oldY + 'x' + oldX);
-        //var oldMapLocationContent = oldMapLocation.innerHTML;
+        // to indicate the player location at the MiniMap:
+        var oldMapLocation = document.getElementById('y' + oldY + 'x' + oldX);        
         var newMapLocation = document.getElementById('y' + pY + 'x' + pX);
 
         document.getElementById('y' + oldY + 'x' + oldX).style.border = "";
@@ -1246,7 +1241,7 @@ App.prototype.start = function () {
         oldMapLocation.innerHTML = mapLocContent;
         mapLocContent = newMapLocation.innerHTML;
         newMapLocation.innerHTML = '<div class="divMinMapTD"> ' +
-                                '<img class="imgMapDude" src="./png/docOne.png" alt="}{" height="22" width="20">' +
+                                '<img class="imgMapDude" src="./png/SuperManStandFW.png" alt="}{" height="22" width="20">' +
                                 '</div>';
     }
 
