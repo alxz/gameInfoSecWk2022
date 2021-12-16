@@ -523,10 +523,12 @@ App.prototype.start = function () {
                             for (var s=0; s < arrAllStories.length; s++ ){
                                 if (arrAllStories[s].rmCoord.x === myDude.roomCoord.x && 
                                     arrAllStories[s].rmCoord.y === myDude.roomCoord.y) {
-                                        console.log('!!! Found a story for this room. StoryID: ', arrAllStories[s].storyId);
+                                        myDude.storyId = arrAllStories[s].storyId;
+                                        console.log('!!! Found a story for this room. StoryID: ', myDude.storyId);
+                                        
                                     }
                             }
-                            
+                            myDude.isResolved = false;
                             myDude.anims.play('questionMarkRotates', true);
                             myDude.disableBody(false, true); // do not remove the object, but hide it: (true,false)
 
@@ -1048,7 +1050,11 @@ App.prototype.start = function () {
 
     function collectKey(player, key) {
         // player clicks the key (or hit the key sprite):
-        var roomStoryId;
+        if ( key.isResolved === true ) {
+            // its already done - skipping
+            console.log('===>>> Story ID = ', key.id, '; is this question Alreaady solved? ', key.isResolved);
+            return;
+        }
         if (key.roomCoord != undefined && key.roomCoord != null) {
             //console.log('=>> This room has special story! Coordinates: ',key.roomCoord);
             // console.log('=>> This room has special story! StoryID: ',key.storyId);
@@ -1065,15 +1071,21 @@ App.prototype.start = function () {
         totalQestionsAsked++;
         var ifSuccessCallback = function () {
             // this happens when the player respond the question successfully
-            //submitAnswerButton.style.display = 'none';
+            
+            if ( key.isResolved === false ) { // its already done - skipping                
+                // console.log('is this question Alreaady solved? ', key.isResolved);
+                player.doorKeys++;   //player.doorKeys+=10;
+                totalQestionsAnswered++;
+            }
+
+            key.isResolved = true; // mark question as resolved
             playerStepBack();
             playSound(soundOk);
+
             key.disableBody(true, true); // this is to remove the key(object) from the scene
 
             isPause = false;
-            player.doorKeys++;
-            //player.doorKeys+=10;
-            totalQestionsAnswered++;
+            
 
             //save the state to the table:
             gameState.customIUN = customIUN;
@@ -1121,7 +1133,7 @@ App.prototype.start = function () {
             showVideo(videoLangURL, onVideoCloseCallback);
             //submitAnswerButton.style.display = "";
         }
-        showQuestion(key.question, ifSuccessCallback, ifCancelCallback);
+        showQuestion(key, ifSuccessCallback, ifCancelCallback);
 
     }
 
@@ -1262,12 +1274,15 @@ App.prototype.start = function () {
     }
 
 /////////questions functionality
-    function showQuestion(question, ifSuccessCallback, ifCancelCallback) {
+    function showQuestion(key, ifSuccessCallback, ifCancelCallback) {
+        
         // pased: showQuestion(megaMAP.questionMAP[0][0], function ()
         document.getElementById("question").style.display = "";
         //alert(question.qId + ') ' + question.qTxt);
         //_this.input.keyboard.enabled = false;
-        buildQuestion(question, ifSuccessCallback, ifCancelCallback);
+        var storyDispOut = buildStoyUI(key);
+        console.log('Returning storyDispOut value = ', storyDispOut);
+        buildQuestion(key.question, ifSuccessCallback, ifCancelCallback);
     }
 
     function hideQuestion() {
@@ -1299,7 +1314,9 @@ App.prototype.start = function () {
                       //questMsg = Base64Decode(currentQuestion.answersFRA[ind].value);
                       questMsg = currentQuestion.answersFRA[ind].value;
                   }
-                  var ansStr = '<label><input type="radio" name="question' + questionNumber + '" value="' + ind + '"> ' + currentQuestion.answers[ind].key + ' : ' + questMsg + '</label>';
+                  var ansStr = '<label><input type="radio" name="question' + questionNumber 
+                                + '" value="' + ind + '"> ' + currentQuestion.answers[ind].key 
+                                + ' : ' + questMsg + '</label>';
                   answers.push (ansStr);
                   //answers.push('<label><input type="radio" name="question${questionNumber}" value="${ind}">  ${currentQuestion.answers[ind].key} :${questMsg}</label>');
                       // `<label>
@@ -1315,7 +1332,8 @@ App.prototype.start = function () {
                 //answerMsg = Base64Decode(currentQuestion.questionFRA);
                 answerMsg = currentQuestion.questionFRA;
               }
-              var ansOutStr = '<div class="slide"><div class="question">' + answerMsg + '<hr/></div> <div class="answers">' + answers.join("") + '</div></div>';
+              var ansOutStr = '<div class="slide"><div class="question">' + answerMsg 
+                            + '<hr/></div> <div class="answers">' + answers.join("") + '</div></div>';
               output.push(ansOutStr);
               // output.push(
               //       `<div class="slide">

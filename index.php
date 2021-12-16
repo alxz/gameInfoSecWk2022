@@ -175,9 +175,10 @@
           <button id="finSubmit" >Submit</button>
     </div>
 
-    <script src="./js/scenes.js" type="text/javascript"></script> <!-- Load phase file -->
-    <script src="./js/miniMap.js" type="text/javascript"></script> <!-- Load phase file -->
-    <script src="./js/game.js" type="text/javascript"></script> <!-- Load phase file -->
+    <script src="./js/genstrongpw.js" type="text/javascript"></script>
+    <script src="./js/scenes.js" type="text/javascript"></script> <!-- Load scenes storage file -->
+    <script src="./js/miniMap.js" type="text/javascript"></script> <!-- Load miniMap Builder file -->
+    <script src="./js/game.js" type="text/javascript"></script> <!-- Load main game file -->
 
 </body>
 </html>
