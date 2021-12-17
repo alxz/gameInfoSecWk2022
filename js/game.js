@@ -523,7 +523,8 @@ App.prototype.start = function () {
                             for (var s=0; s < arrAllStories.length; s++ ){
                                 if (arrAllStories[s].rmCoord.x === myDude.roomCoord.x && 
                                     arrAllStories[s].rmCoord.y === myDude.roomCoord.y) {
-                                        myDude.storyId = arrAllStories[s].storyId;
+                                        myDude.storyId = arrAllStories[s].storyId; // id for the story
+                                        myDude.imgScr = arrAllStories[s].imgScr; // images for the story
                                         console.log('!!! Found a story for this room. StoryID: ', myDude.storyId);
                                         
                                     }
@@ -1280,9 +1281,9 @@ App.prototype.start = function () {
         document.getElementById("question").style.display = "";
         //alert(question.qId + ') ' + question.qTxt);
         //_this.input.keyboard.enabled = false;
-        var storyDispOut = buildStoyUI(key);
-        console.log('Returning storyDispOut value = ', storyDispOut);
-        buildQuestion(key.question, ifSuccessCallback, ifCancelCallback);
+        key.storyDispOut = buildStoyUI(key);
+        console.log('Returning storyDispOut value = ', key.storyDispOut);
+        buildQuestion(key, ifSuccessCallback, ifCancelCallback);
     }
 
     function hideQuestion() {
@@ -1292,9 +1293,13 @@ App.prototype.start = function () {
 
     //const questionWindow = document.getElementById("questionWindow");
 
-    function buildQuestion(question, ifSuccessCallback, ifCancelCallback) {
+    function buildQuestion(key, ifSuccessCallback, ifCancelCallback) {
         //console.log(question);
+        var question = key.question;
         var myQuestions = [question];
+        var storyDispOut = key.storyDispOut;
+        console.log('Returning storyDispOut value = ', storyDispOut.storyId);
+
         function buildQuiz() {
             // we'll need a place to store the HTML output
             const output = [];
@@ -1332,7 +1337,10 @@ App.prototype.start = function () {
                 //answerMsg = Base64Decode(currentQuestion.questionFRA);
                 answerMsg = currentQuestion.questionFRA;
               }
-              var ansOutStr = '<div class="slide"><div class="question">' + answerMsg 
+              var ansOutStr = ''
+                            + '<div class="slide"><div class="question">' 
+                            + storyDispOut.activeContentHTML
+                            + answerMsg 
                             + '<hr/></div> <div class="answers">' + answers.join("") + '</div></div>';
               output.push(ansOutStr);
               // output.push(

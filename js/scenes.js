@@ -572,6 +572,7 @@ function getAllStories() {
             lastScene: 4,
             questCoord: { x: 400, y: 300 },
             decorXY: { x: 400, y: 200} ,
+            imgScr: { en: "./png/SecurityCampagin_memorizepwd_en.png", fr: "./png/SecurityCampagin_memorizepwd_fr.png" },
             sceneList: [
                 {
                     sceneId: 0,
