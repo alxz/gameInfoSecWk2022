@@ -1322,13 +1322,7 @@ App.prototype.start = function () {
                   var ansStr = '<label><input type="radio" name="question' + questionNumber 
                                 + '" value="' + ind + '"> ' + currentQuestion.answers[ind].key 
                                 + ' : ' + questMsg + '</label>';
-                  answers.push (ansStr);
-                  //answers.push('<label><input type="radio" name="question${questionNumber}" value="${ind}">  ${currentQuestion.answers[ind].key} :${questMsg}</label>');
-                      // `<label>
-                      //   <input type="radio" name="question${questionNumber}" value="${ind}">
-                      //   ${currentQuestion.answers[ind].key} :
-                      //   ${questMsg}
-                      //   </label>`
+                  answers.push (ansStr);                  
               }
               // add this question and its answers to the output
               //var answerMsg = Base64Decode(currentQuestion.question);
@@ -1342,17 +1336,15 @@ App.prototype.start = function () {
                             + storyDispOut.activeContentHTML
                             + answerMsg 
                             + '<hr/></div> <div class="answers">' + answers.join("") + '</div></div>';
-              output.push(ansOutStr);
-              // output.push(
-              //       `<div class="slide">
-              //          <div class="question"> ${atob(currentQuestion.question)}</div>
-              //          <div class="answers"> ${answers.join("")} </div>
-              //        </div>`
-              //   );
+              output.push(ansOutStr);              
+              
             }
             // finally combine our output list into one string of HTML and put it on the page
             quizContainer.innerHTML = output.join("");
             submitAnswerButton.style.display = '';
+
+            // lest call story src selector
+            story_src_selector(storyDispOut.storyId);
         }
 
         function showResults() {

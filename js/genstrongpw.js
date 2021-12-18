@@ -66,15 +66,21 @@ function buildStoyUI(keyObj) {
             3 # safely unguessable: moderate protection from offline slow-hash scenario. (guesses < 10^10)
             4 # very unguessable: strong protection from offline slow-hash scenario. (guesses >= 10^10)
           */
-
+          /*
           var decorTopHTML = `<div id="images">` 
                             + `<img src="` + keyObj.imgScr.en + `" width="60%" height="60%"`
                             + `alt="Password Demonstration" align="middle">`
-                            + `</div>`;
-          var decorBottomHTML = `<br><input id="psw-input" type="password" maxlength="40"><br><br><input type="submit" value="Submit"><br>`;
+                            + `</div>`; 
+          */
+
+          decorTopHTML = pass_buildDrgDrpUI();
+          
           var activeContentHTML = `<div id="decorContent" class="questionDecorContent">`;
-          activeContentHTML = activeContentHTML + decorTopHTML + decorBottomHTML;
-          activeContentHTML = activeContentHTML + `</div>`;
+          var decorBottomHTML = `<br><input id="psw-input" type="password" maxlength="40">`;
+          decorBottomHTML +=    `<br><br><input type="submit" value="Submit"><br>`;
+
+          activeContentHTML =  decorTopHTML + activeContentHTML + decorBottomHTML;
+          activeContentHTML += `</div>`;
           storyDispOut.activeContentHTML = activeContentHTML;
 
           break;                    
@@ -82,4 +88,40 @@ function buildStoyUI(keyObj) {
           // code block
       }
     return storyDispOut;
+}
+
+function pass_buildDrgDrpUI() {
+  var itemsSetStructure = `
+    <div class="pass_itemsfields">
+      <fieldset id="pass_left" class="pass_game">
+        <legend><b>Strong Password</b></legend>
+        <ol id="pass_strongPass">
+          <li id="pass_low_UPPER_case">low and UPPER case letters</li>
+          <li id="pass_no_dict_dord">Not a dictionary word</li>
+          <li id="pass_spec_chars">Special Characters</li>
+          <li id="pass_nums_symb">Numbers and symbols</li>
+          <li id="pass_len_8to12_chars">At least 8 or 12 characters</li>
+        </ol>
+      </fieldset>
+
+      <fieldset id="pass_right" class="pass_game">
+        <legend><b>Weak Password</b></legend>
+        <ol id="pass_weakPass">
+          <li id="pass_last_first_name">Last and first names</li>
+          <li id="pass_your_bday">Your birthday date</li>
+          <li id="pass_dict_word">Nice word from the dictionary</li>
+          <li id="pass_nums_syms">numbers and symbols</li>
+          <li id="pass_less_8_chars">Less than 8 characters long</li>
+        </ol>
+      </fieldset>
+    </div>`;
+
+  return itemsSetStructure;
+}
+
+function pass_sort_lists() {
+  $(document).ready(function() {
+    $("#pass_strongPass").sortable({connectWith:"#pass_weakPass"}).draggable();
+    $("#pass_weakPass").sortable({connectWith:"#pass_strongPass"}).draggable();
+  } );
 }

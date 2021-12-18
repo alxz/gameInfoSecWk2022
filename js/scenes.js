@@ -1209,3 +1209,16 @@ function getSceneSprites(coordX, coordY) {
         }
     ]
 }
+
+function story_src_selector(storyId) {
+
+    // by suing storyDispOut.storyId
+    switch(storyId) {
+        case 4:
+            pass_sort_lists();
+
+            break;                    
+        default:
+          // code block
+    }
+}
