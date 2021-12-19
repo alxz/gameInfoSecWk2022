@@ -1053,7 +1053,7 @@ App.prototype.start = function () {
         // player clicks the key (or hit the key sprite):
         if ( key.isResolved === true ) {
             // its already done - skipping
-            console.log('===>>> Story ID = ', key.id, '; is this question Alreaady solved? ', key.isResolved);
+            // console.log('===>>> Story ID = ', key.id, '; is this question Alreaady solved? ', key.isResolved);
             return;
         }
         if (key.roomCoord != undefined && key.roomCoord != null) {
@@ -1282,7 +1282,7 @@ App.prototype.start = function () {
         //alert(question.qId + ') ' + question.qTxt);
         //_this.input.keyboard.enabled = false;
         key.storyDispOut = buildStoyUI(key);
-        console.log('Returning storyDispOut value = ', key.storyDispOut);
+        // console.log('Returning storyDispOut value = ', key.storyDispOut);
         buildQuestion(key, ifSuccessCallback, ifCancelCallback);
     }
 
@@ -1298,7 +1298,7 @@ App.prototype.start = function () {
         var question = key.question;
         var myQuestions = [question];
         var storyDispOut = key.storyDispOut;
-        console.log('Returning storyDispOut value = ', storyDispOut.storyId);
+        // console.log('Returning storyDispOut value = ', storyDispOut.storyId);
 
         function buildQuiz() {
             // we'll need a place to store the HTML output
@@ -1344,7 +1344,9 @@ App.prototype.start = function () {
             submitAnswerButton.style.display = '';
 
             // lest call story src selector
-            story_src_selector(storyDispOut.storyId);
+            console.log("function buildQuiz() almost done! key.storyId =" , key.storyId);
+            story_src_selector(key.storyId);
+            
         }
 
         function showResults() {

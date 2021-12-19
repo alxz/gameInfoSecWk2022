@@ -492,6 +492,7 @@ imgMapDude:hover {
 }
 
 .pass_itemsfields {
+	display: flex;
 	float: none;
 	margin-left: auto;
 	margin-right: auto;
@@ -510,7 +511,7 @@ ol.pass_game  {
 
 li.pass_game  {
 	height: 30px;
-	width: 150px;
+	width: 90%;
 	border: 1px solid black;
 	margin: 2px;
 	font-size: 20px;
@@ -531,4 +532,35 @@ fieldset.pass_game  {
 
 #pass_weakPass li {
 	background-color: rgb(99, 245, 106);
+}
+
+#pass_componentsPass li {
+	background-color: rgb(95, 3, 75);
+}
+
+.draggable {
+	display: flex;
+	font-size: 16px;
+	align-items: center;
+	justify-content: center;
+	cursor: move;
+	transition: opacity 0.2s;
+	margin: 5px;
+}
+
+.draggable-elements {
+	display: flex;
+	justify-content: center;
+	margin: 2rem;
+}
+
+.droppable { 
+	font-size: 16px;
+	margin: 5px;
+	border: 1px solid rgb(217, 255, 0);
+
+}
+
+.draggable:hover {
+	opacity: 0.5;
 }

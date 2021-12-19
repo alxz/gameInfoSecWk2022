@@ -1215,6 +1215,7 @@ function story_src_selector(storyId) {
     // by suing storyDispOut.storyId
     switch(storyId) {
         case 4:
+            console.log("story_src_selector(storyId) where storyId = ", storyId);
             pass_sort_lists();
 
             break;                    

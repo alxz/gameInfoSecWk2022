@@ -50,10 +50,7 @@ function buildStoyUI(keyObj) {
           keyObj.question.questionURL = "https://www.youtube.com/embed/qcqqh8qyAH4";
           keyObj.question.questionurlFRA = "https://www.youtube.com/embed/7w2S9G9kt2g";
           keyObj.question.question = "How to create a strong password (recepie)?";
-          keyObj.question.questionFRA = "Comment créer un mot de passe fort (recette) ?<br />" + 
-            "Il est important d’avoir un mot de passe sécurisé," + 
-             " car les criminels peuvent déchiffrer des mots de passe" + 
-             " simpls en quelques secondes et accéder ensuite à vos informations pour commettre des fraudes.";
+          keyObj.question.questionFRA = "Comment créer un mot de passe fort (recette)?"
           console.log('Story ID = ', id, '; keyObj.question: ', keyObj.question.question);
           storyDispOut.storyId = "This Story ID is = " + id;
 
@@ -92,26 +89,44 @@ function buildStoyUI(keyObj) {
 
 function pass_buildDrgDrpUI() {
   var itemsSetStructure = `
-    <div class="pass_itemsfields">
-      <fieldset id="pass_left" class="pass_game">
+    <div class="pass_itemsfields"  class="draggable">
+      <fieldset id="pass_left" class="pass_game draggable-element">
         <legend><b>Strong Password</b></legend>
         <ol id="pass_strongPass">
-          <li id="pass_low_UPPER_case">low and UPPER case letters</li>
-          <li id="pass_no_dict_dord">Not a dictionary word</li>
-          <li id="pass_spec_chars">Special Characters</li>
-          <li id="pass_nums_symb">Numbers and symbols</li>
-          <li id="pass_len_8to12_chars">At least 8 or 12 characters</li>
+          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
+          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
+          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
+          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
+          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
+          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
         </ol>
       </fieldset>
 
-      <fieldset id="pass_right" class="pass_game">
+      <fieldset id="pass_center" class="pass_game draggable-element">
+        <legend><b>Components of the Password</b></legend>
+        <ol id="pass_componentsPass">
+          <li id="pass_low_UPPER_case" class="draggable" draggable="true">low and UPPER case letters</li>
+          <li id="pass_no_dict_dord" class="draggable" draggable="true">Not a dictionary word</li>
+          <li id="pass_spec_chars" class="draggable" draggable="true">Special Characters</li>
+          <li id="pass_nums_symb" class="draggable" draggable="true">Numbers and symbols</li>
+          <li id="pass_len_8to12_chars" class="draggable" draggable="true">At least 8 or 12 characters</li>
+          <li id="pass_last_first_name" class="draggable" draggable="true">Last and first names</li>
+          <li id="pass_your_bday" class="draggable" draggable="true">Your birthday date</li>
+          <li id="pass_dict_word" class="draggable" draggable="true">Nice word from the dictionary</li>
+          <li id="pass_nums_syms" class="draggable" draggable="true">numbers and symbols</li>
+          <li id="pass_less_8_chars" class="draggable" draggable="true">Less than 8 characters long</li>
+        </ol>
+      </fieldset>
+
+      <fieldset id="pass_right" class="pass_game draggable-element">
         <legend><b>Weak Password</b></legend>
         <ol id="pass_weakPass">
-          <li id="pass_last_first_name">Last and first names</li>
-          <li id="pass_your_bday">Your birthday date</li>
-          <li id="pass_dict_word">Nice word from the dictionary</li>
-          <li id="pass_nums_syms">numbers and symbols</li>
-          <li id="pass_less_8_chars">Less than 8 characters long</li>
+          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
+          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
+          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
+          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
+          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
+          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
         </ol>
       </fieldset>
     </div>`;
@@ -120,8 +135,49 @@ function pass_buildDrgDrpUI() {
 }
 
 function pass_sort_lists() {
-  $(document).ready(function() {
-    $("#pass_strongPass").sortable({connectWith:"#pass_weakPass"}).draggable();
-    $("#pass_weakPass").sortable({connectWith:"#pass_strongPass"}).draggable();
-  } );
+
+  console.log("pass_sort_lists initiated! ");
+  const draggableElements = document.querySelectorAll(".draggable");
+  const droppableElements = document.querySelectorAll(".droppable");
+
+  draggableElements.forEach(elem => {
+    elem.addEventListener("dragstart",dragStart);
+    // elem.addEventListener("drag",drag);
+    // elem.addEventListener("dragend",dragEnd);
+  });
+
+  droppableElements.forEach(elem => {
+    elem.addEventListener("dragenter",dragEnter);
+    elem.addEventListener("dragover",dragOver);
+    elem.addEventListener("dragleave",dragLeave);
+    elem.addEventListener("drop",drop);
+  });
+
+  // Drag and Drop functions:
+  function dragStart(event) {
+    console.log('==>>> dragStart dragging... ');
+    event.dataTransfer.setData("text", event.target.id);
+  }
+
+  function dragOver(event) {
+    event.preventDefault();
+  }
+
+  function dragEnter(event) {
+    event.target.classList.add("droppable-hover");
+  }
+
+  function dragLeave(event) {
+    event.target.classList.remove("droppable-hover");
+  }
+
+  function drop(event) {
+    event.preventDefault();
+    const draggableElementData = event.dataTransfer.getData("text");
+    const droppableElementData = event.target.getAttribute("data-draggable-id");
+    // event.target.style.backgroundColor = draggableElementData;
+
+  }
+
+
 }
