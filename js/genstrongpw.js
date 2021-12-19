@@ -99,6 +99,10 @@ function pass_buildDrgDrpUI() {
           <li class="droppable pass_strongPass" draggable="true">drop-here</li>
           <li class="droppable pass_strongPass" draggable="true">drop-here</li>
           <li class="droppable pass_strongPass" draggable="true">drop-here</li>
+          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
+          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
+          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
+          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
         </ol>
       </fieldset>
 
@@ -121,6 +125,10 @@ function pass_buildDrgDrpUI() {
       <fieldset id="pass_right" class="pass_game draggable-element">
         <legend><b>Weak Password</b></legend>
         <ol id="pass_weakPass">
+          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
+          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
+          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
+          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
           <li class="droppable pass_weakPass" draggable="true">drop-here</li>
           <li class="droppable pass_weakPass" draggable="true">drop-here</li>
           <li class="droppable pass_weakPass" draggable="true">drop-here</li>
@@ -176,6 +184,19 @@ function pass_sort_lists() {
     const draggableElementData = event.dataTransfer.getData("text");
     const droppableElementData = event.target.getAttribute("data-draggable-id");
     // event.target.style.backgroundColor = draggableElementData;
+
+    if (document.getElementById("pass_strongPass")) {
+
+    }
+
+    if (draggableElementData === droppableElementData) {
+      event.target.classList.add("dropped");
+      const draggableElement = document.getElementById(draggableElementData);
+      event.target.style.backgroundColor = draggableElement.style.color;
+      draggableElement.classList.add("dragged");
+      draggableElement.setAttribute("draggable","false");
+      event.target.insertAdjacentHTML("afterbegin", `i class=""`);
+    }
 
   }
 
