@@ -523,6 +523,7 @@ ol.pass_game  {
 }
 
 li.pass_game  {
+	list-style-type: none;
 	height: 30px;
 	width: calc(95% - 10px);
 	border: 1px solid black;
@@ -535,21 +536,24 @@ fieldset.pass_game  {
 	float: left;
 	margin: 5px;
 	width: calc(29% - 10px);
-	/* height: 500px; */
+	height: 500px;
 	border: 5px solid black;
 }
 
 #pass_strongPass li {
+	list-style-type: none;
 	background-color: rgb(93, 188, 243);
 	height: 2rem;
 }
 
 #pass_weakPass li {
-	background-color: rgb(99, 245, 106);
+	list-style-type: none;
+	background-color: rgb(64, 68, 64);
 	height: 2rem;
 }
 
 #pass_componentsPass li {
+	list-style-type: none;
 	background-color: rgb(95, 3, 75);
 	height: 2rem;
 }

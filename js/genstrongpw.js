@@ -88,26 +88,19 @@ function buildStoyUI(keyObj) {
 }
 
 function pass_buildDrgDrpUI() {
+  // <li class="droppable pass_strongPass" draggable="true">drop-here</li>
+  // <li class="droppable pass_weakPass" draggable="true">drop-here</li>
   var itemsSetStructure = `
     <div class="pass_itemsfields"  class="draggable">
-      <fieldset id="pass_left" class="pass_game draggable-element">
+      <fieldset id="pass_left" class="pass_game draggable-element droppable">
         <legend><b>Strong Password</b></legend>
-        <ol id="pass_strongPass">
-          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
-          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
-          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
-          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
-          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
-          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
-          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
-          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
-          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
-          <li class="droppable pass_strongPass" draggable="true">drop-here</li>
-        </ol>
+        <ul id="pass_strongPass">
+          
+        </ul>
       </fieldset>
 
       <fieldset id="pass_center" class="pass_game draggable-element">
-        <legend><b>Components of the Password</b></legend>
+        <legend><b>components</b></legend>
         <ol id="pass_componentsPass">
           <li id="pass_low_UPPER_case" class="draggable" draggable="true">low and UPPER case letters</li>
           <li id="pass_no_dict_dord" class="draggable" draggable="true">Not a dictionary word</li>
@@ -122,20 +115,11 @@ function pass_buildDrgDrpUI() {
         </ol>
       </fieldset>
 
-      <fieldset id="pass_right" class="pass_game draggable-element">
+      <fieldset id="pass_right" class="pass_game draggable-element droppable">
         <legend><b>Weak Password</b></legend>
-        <ol id="pass_weakPass">
-          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
-          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
-          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
-          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
-          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
-          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
-          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
-          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
-          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
-          <li class="droppable pass_weakPass" draggable="true">drop-here</li>
-        </ol>
+        <ul id="pass_weakPass">
+          
+        </ul>
       </fieldset>
     </div>`;
 
@@ -173,20 +157,55 @@ function pass_sort_lists() {
 
   function dragEnter(event) {
     event.target.classList.add("droppable-hover");
+    // document.getElementById(event).classList.add("droppable-hover");
   }
 
   function dragLeave(event) {
     event.target.classList.remove("droppable-hover");
+    // document.getElementById(event).classList.remove("droppable-hover");
   }
 
   function drop(event) {
     event.preventDefault();
-    const draggableElementData = event.dataTransfer.getData("text");
-    const droppableElementData = event.target.getAttribute("data-draggable-id");
+    console.log("###==>> event: ",event);
+    var draggableElementData = event.dataTransfer.getData("text");
+    const droppableElementData = event.target.getAttribute("data-droppable-id");
     // event.target.style.backgroundColor = draggableElementData;
+    const dropTarget = event.target;
+    console.log("###==>> dropTarget(parentElement): ",dropTarget);
 
-    if (document.getElementById("pass_strongPass")) {
+    var pass_strongPass = document.getElementById("pass_strongPass");
+    var pass_weakPass = document.getElementById("pass_weakPass");
 
+    console.log("---==>> droppableElementData used?", droppableElementData);
+    console.log("---==>> pass_strongPass dropped?", pass_strongPass.id);
+    console.log("---==>> pass_weakPass dropped?", pass_weakPass.id);
+
+    if (dropTarget.id === "pass_left") {
+      // console.log("-=>>- pass_strongPass dropped");
+      event.target.classList.add("dropped","droppable","pass_strongPass");
+      var node = document.createElement('li');
+      node.appendChild(document.createTextNode(draggableElementData));  
+      node.classList.add("dropped","droppable","pass_strongPass"); 
+      pass_strongPass.appendChild(node);
+
+      var pass_componentsPass = document.getElementById("pass_componentsPass");
+      var candidate = document.getElementById(draggableElementData);
+      pass_componentsPass.removeChild(candidate);
+      
+    }
+
+    if (dropTarget.id === "pass_right") {
+      // console.log("-=>>- pass_weakPass dropped");
+      event.target.classList.add("dropped","droppable","pass_weakPass");
+      var node = document.createElement('li');
+      node.appendChild(document.createTextNode(draggableElementData));
+      node.classList.add("dropped","droppable","pass_weakPass");
+      pass_weakPass.appendChild(node);
+
+      var pass_componentsPass = document.getElementById("pass_componentsPass");
+      var candidate = document.getElementById(draggableElementData);
+      pass_componentsPass.removeChild(candidate);
     }
 
     if (draggableElementData === droppableElementData) {
