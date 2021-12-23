@@ -119,6 +119,8 @@
     <div id="question" style="display: none" class="question-popup">
         <div id="questionWindow" class="question-container question-hide">
             <div class="quiz-container">
+                <div id="miniGame">
+                </div>
                 <div id="quiz">
                 </div>
             </div>

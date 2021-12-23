@@ -1485,13 +1485,16 @@ App.prototype.start = function () {
             }
             */
             var ansOutStr = '<div class="slide"><div class="question">'
-                            + storyDispOut.activeContentHTML + '<br>'
-                            + '<hr/></div> <div class="answers">' + '</div></div>';
+                            // + storyDispOut.activeContentHTML + '<br>'
+                            + '<h1>Quiz Questions</h1><hr/></div> <div class="answers">' 
+                            + '</div></div>';
+
+                          
             output.push(ansOutStr); 
             // finally combine our output list into one string of HTML and put it on the page
             quizContainer.innerHTML = output.join("");
             submitAnswerButton.style.display = 'block';
-            // console.log('~~~~>>>  ansOutStr: ', ansOutStr);
+            console.log('~~~~>>>  ansOutStr: ', ansOutStr);
             console.log('~~~~>>>  storyDispOut.activeContentHTML: ', storyDispOut.activeContentHTML);
             
         }

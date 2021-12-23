@@ -586,6 +586,8 @@ fieldset.pass_game  {
 }
 
 .droppable.dropped {
+	min-width: 135px;
+	min-height: 2.5rem;
 	border-style: soldif;
 	color: #fff;
 }

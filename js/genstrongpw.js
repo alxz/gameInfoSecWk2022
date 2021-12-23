@@ -103,16 +103,16 @@ function pass_buildDrgDrpUI() {
       <fieldset id="pass_center" class="pass_game draggable-element">
         <legend><b>components</b></legend>
         <ol id="pass_componentsPass">
-          <li id="pass_low_UPPER_case" class="draggable" draggable="true">low and UPPER case letters</li>
-          <li id="pass_no_dict_dord" class="draggable" draggable="true">Not a dictionary word</li>
-          <li id="pass_spec_chars" class="draggable" draggable="true">Special Characters</li>
-          <li id="pass_nums_symb" class="draggable" draggable="true">Numbers and symbols</li>
-          <li id="pass_len_8to12_chars" class="draggable" draggable="true">At least 8 or 12 characters</li>
-          <li id="pass_last_first_name" class="draggable" draggable="true">Last and first names</li>
-          <li id="pass_your_bday" class="draggable" draggable="true">Your birthday date</li>
-          <li id="pass_dict_word" class="draggable" draggable="true">Nice word from the dictionary</li>
-          <li id="pass_nums_syms" class="draggable" draggable="true">numbers and symbols</li>
-          <li id="pass_less_8_chars" class="draggable" draggable="true">Less than 8 characters long</li>
+          <li id="pass_low_UPPER_case" data-droppable-id="pass_low_UPPER_case" class="draggable" draggable="true">low and UPPER case letters</li>
+          <li id="pass_no_dict_dord" data-droppable-id="pass_no_dict_dord" class="draggable" draggable="true">Not a dictionary word</li>
+          <li id="pass_spec_chars" data-droppable-id="pass_spec_chars" class="draggable" draggable="true">Special Characters</li>
+          <li id="pass_nums_symb" data-droppable-id="pass_nums_symb" class="draggable" draggable="true">Numbers and symbols</li>
+          <li id="pass_len_8to12_chars" data-droppable-id="pass_len_8to12_chars" class="draggable" draggable="true">At least 8 or 12 characters</li>
+          <li id="pass_last_first_name" data-droppable-id="pass_last_first_name" class="draggable" draggable="true">Last and first names</li>
+          <li id="pass_your_bday" data-droppable-id="pass_your_bday" class="draggable" draggable="true">Your birthday date</li>
+          <li id="pass_dict_word" data-droppable-id="pass_dict_word" class="draggable" draggable="true">Nice word from the dictionary</li>
+          <li id="pass_nums_syms" data-droppable-id="pass_nums_syms" class="draggable" draggable="true">numbers and symbols</li>
+          <li id="pass_less_8_chars" data-droppable-id="pass_less_8_chars" class="draggable" draggable="true">Less than 8 characters long</li>
         </ol>
       </fieldset>
 
@@ -142,7 +142,7 @@ function pass_show_miniGameUI(_htmlSrc,keyObj) {
   var id = keyObj.storyId;
   var isResolved = keyObj.isResolved;
   // binding the variable to on-screen divs:
-  const pass_quizContainer = document.getElementById("quiz");
+  const pass_quizContainer = document.getElementById("miniGame");
   const pass_submitButton = document.getElementById("submit");
   // buildQuiz();
   pass_quizContainer.innerHTML = _htmlSrc.join("");
@@ -194,7 +194,8 @@ function pass_sort_lists() {
     event.preventDefault();
     console.log("###==>> event: ",event);
     var draggableElementData = event.dataTransfer.getData("text");
-    const droppableElementData = event.target.getAttribute("data-droppable-id");
+    const droppableElementData = event.target.getAttribute("id");
+    
     // event.target.style.backgroundColor = draggableElementData;
     const dropTarget = event.target;
     console.log("###==>> dropTarget(parentElement): ",dropTarget);
@@ -202,35 +203,46 @@ function pass_sort_lists() {
     var pass_strongPass = document.getElementById("pass_strongPass");
     var pass_weakPass = document.getElementById("pass_weakPass");
 
-    console.log("---==>> droppableElementData used?", droppableElementData);
-    console.log("---==>> pass_strongPass dropped?", pass_strongPass.id);
-    console.log("---==>> pass_weakPass dropped?", pass_weakPass.id);
+    console.log("---==>> droppableElementData used:", droppableElementData);
+    // console.log("---=>> pass_strongPass dropped: ", pass_strongPass.id);
+    // console.log("---=>> pass_weakPass dropped: ", pass_weakPass.id);
+    console.log("--->> draggableElementData: ", draggableElementData);
+    
 
     if (dropTarget.id === "pass_left") {
       // console.log("-=>>- pass_strongPass dropped");
       event.target.classList.add("dropped","droppable","pass_strongPass");
-      var node = document.createElement('li');
+      var node = document.createElement('li');      
       node.appendChild(document.createTextNode(draggableElementData));  
-      node.classList.add("dropped","droppable","pass_strongPass"); 
+      node.classList.add("dropped","droppable","pass_strongPass","draggable");      
       pass_strongPass.appendChild(node);
 
       var pass_componentsPass = document.getElementById("pass_componentsPass");
       var candidate = document.getElementById(draggableElementData);
+      var droppedItemText = candidate.innerHTML;
+      console.log("--->> droppedItemText: ", droppedItemText);
       pass_componentsPass.removeChild(candidate);
-      
+      node.setAttribute('id', draggableElementData) ;
+      node.setAttribute('draggable', 'true');
+      node.innerHTML= droppedItemText;
     }
 
     if (dropTarget.id === "pass_right") {
       // console.log("-=>>- pass_weakPass dropped");
       event.target.classList.add("dropped","droppable","pass_weakPass");
       var node = document.createElement('li');
-      node.appendChild(document.createTextNode(draggableElementData));
-      node.classList.add("dropped","droppable","pass_weakPass");
+      node.appendChild(document.createTextNode(draggableElementData));      
+      node.classList.add("dropped","droppable","pass_weakPass","draggable");      
       pass_weakPass.appendChild(node);
 
       var pass_componentsPass = document.getElementById("pass_componentsPass");
       var candidate = document.getElementById(draggableElementData);
+      var droppedItemText = candidate.innerHTML;
+      console.log("--->> droppedItemText: ", droppedItemText);
       pass_componentsPass.removeChild(candidate);
+      node.setAttribute('id', draggableElementData) ;
+      node.setAttribute('draggable', 'true');
+      node.innerHTML= droppedItemText;
     }
 
     if (draggableElementData === droppableElementData) {
