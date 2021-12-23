@@ -1211,7 +1211,7 @@ function getSceneSprites(coordX, coordY) {
 }
 
 function story_src_selector(storyId) {
-
+/*
     // by suing storyDispOut.storyId
     switch(storyId) {
         case 4:
@@ -1222,4 +1222,41 @@ function story_src_selector(storyId) {
         default:
           // code block
     }
+*/    
+}
+
+function selectAndBuildStoyById(keyObj) {
+    // build a story based on storyID
+    var id = keyObj.storyId;
+    var isResolved = keyObj.isResolved;
+    var storyDispOut = {};
+    switch(id) {
+        case 0:
+          // code block
+          break;
+        case 1:
+          // code block
+          break;
+        case 2:
+          // code block
+          break;          
+        case 3:
+          // code block
+          break;
+        case 4:
+            // Strong Password mini-Game:
+            //   console.log('Story ID = ', id );
+            storyDispOut.storyId = id;
+            var outputArr = [];
+            decorTopHTML = pass_buildDrgDrpUI(); // building part of the story scene (HTML) template
+            outputArr.push(decorTopHTML);
+            storyDispOut.activeContentHTML = decorTopHTML;
+            pass_show_miniGameUI(outputArr, keyObj);
+            
+          break;                    
+        default:
+          // code block by default: no story found
+          storyDispOut = null;
+      }
+    return storyDispOut;
 }

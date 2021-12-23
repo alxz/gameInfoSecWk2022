@@ -82,7 +82,8 @@ function buildStoyUI(keyObj) {
 
           break;                    
         default:
-          // code block
+          // code block by default: no story found
+          storyDispOut = null;
       }
     return storyDispOut;
 }
@@ -123,7 +124,31 @@ function pass_buildDrgDrpUI() {
       </fieldset>
     </div>`;
 
+    
+    // ar decorBottomHTML = `<br><input id="psw-input" type="password" maxlength="40">`;
+    var activeContentHTML = `<div id="decorContent" class="questionDecorContent">`;
+    var decorBottomHTML = `<hr /><h3>Can you please sort the componnents between STRONG and WEEK baskets?</h3><hr />`;
+    // decorBottomHTML +=    `<br><br><input type="submit" value="Validate"><br>`;
+    decorBottomHTML +=    `<br><br><button id="submitMiniGame">Lets check it!</button><br>`;
+    itemsSetStructure =  itemsSetStructure + activeContentHTML + decorBottomHTML;
+    itemsSetStructure += `</div>`;
+
   return itemsSetStructure;
+}
+
+function pass_show_miniGameUI(_htmlSrc,keyObj) {
+  // const submitAnswerButton = document.getElementById("submitAnswerButton");
+  // submitAnswerButton.style.display = 'none';
+  var id = keyObj.storyId;
+  var isResolved = keyObj.isResolved;
+  // binding the variable to on-screen divs:
+  const pass_quizContainer = document.getElementById("quiz");
+  const pass_submitButton = document.getElementById("submit");
+  // buildQuiz();
+  pass_quizContainer.innerHTML = _htmlSrc.join("");
+  pass_sort_lists(); // adding logic to the mini-Game (js code)
+
+
 }
 
 function pass_sort_lists() {
@@ -221,3 +246,6 @@ function pass_sort_lists() {
 
 
 }
+
+
+
